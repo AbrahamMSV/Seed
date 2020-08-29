@@ -1,0 +1,97 @@
+﻿@model TrabajoSeed.Models.UserInfo
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>UserInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="UserInfo" asp-action="Create">
+            <div class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cuenta" class="control-label"></label>
+                <input asp-for="Cuenta" class="form-control" />
+                <span asp-validation-for="Cuenta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorreoElectronico" class="control-label"></label>
+                <input asp-for="CorreoElectronico" class="form-control" />
+                <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroDeTelefonoMovil" class="control-label"></label>
+                <input asp-for="NumeroDeTelefonoMovil" class="form-control" />
+                <span asp-validation-for="NumeroDeTelefonoMovil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AcercaDeMi" class="control-label"></label>
+                <input asp-for="AcercaDeMi" class="form-control" />
+                <span asp-validation-for="AcercaDeMi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DireccionSip" class="control-label"></label>
+                <input asp-for="DireccionSip" class="form-control" />
+                <span asp-validation-for="DireccionSip" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Departamento" class="control-label"></label>
+                <input asp-for="Departamento" class="form-control" />
+                <span asp-validation-for="Departamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Puesto" class="control-label"></label>
+                <input asp-for="Puesto" class="form-control" />
+                <span asp-validation-for="Puesto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Acronimo" class="control-label"></label>
+                <input asp-for="Acronimo" class="form-control" />
+                <span asp-validation-for="Acronimo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ambito" class="control-label"></label>
+                <input asp-for="Ambito" class="form-control" />
+                <span asp-validation-for="Ambito" class="text-danger"></span>
+            </div>
+            <hr />
+            <h4>Ente Publico</h4>
+            <div class="form-group">
+                <label name="entePublicoModel.Nombre" class="control-label">Nombre</label>
+                <input name="entePublicoModel.Nombre" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label name="entePublicoModel.Ambito" class="control-label">Ambito</label>
+                <input name="entePublicoModel.Ambito" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label name="entePublicoModel.PeriodoDeAdministracion" class="control-label">Periodo de administración</label>
+                <input name="entePublicoModel.PeriodoDeAdministracion" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label name="entePublicoModel.Acronimo" class="control-label">Acronimo</label>
+                <input name="entePublicoModel.Acronimo" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
