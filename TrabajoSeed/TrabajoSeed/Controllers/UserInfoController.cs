@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TrabajoSeed.Models;
 using TrabajoSeed.Services;
@@ -19,7 +20,7 @@ namespace TrabajoSeed.Controllers
             _UserInfo = _IUserInfo;
             _FileService = _IFileService;
         }
-        [Authorize(Roles = "CONALEP")]
+        [Authorize]
         public IActionResult Index()
         {
             return View(_UserInfo.GetUsersInfo);
@@ -65,12 +66,12 @@ namespace TrabajoSeed.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult UploadFile(FileUpload file,Documentos documento)
+        public IActionResult UploadFile(IFormFile file,Documentos documento)
         {
             var identity = (ClaimsIdentity)User.Identity;
             string[] entePublico = { identity.FindFirst(ClaimTypes.Role).Value, identity.FindFirst(ClaimTypes.Expiration).Value };
 
-            string[] content = _FileService.Upload(file,entePublico);
+            string[] content = _FileService.UploadFile(file,entePublico);
             if (content.Length != 0)
             {
             _UserInfo.SubirArchivo(content, documento);

@@ -50,26 +50,14 @@ namespace TrabajoSeed.Repository
 
         public UserInfo GetUser(UserInfo input)
         {
-            UserInfo Usuario = new UserInfo();
-            Usuario = db.UserInfo.Include(ente => ente.EntePublico)
+
+            UserInfo Usuario = db.UserInfo.Include(ente => ente.EntePublico)
                 .Where(x => x.CorreoElectronico == input.CorreoElectronico)
                 .Where(x => x.NumeroDeTelefonoMovil == input.NumeroDeTelefonoMovil).FirstOrDefault();
 
-            IEnumerable<UserInfo> Coincidencia = db.UserInfo.Where(x => x.CorreoElectronico == input.CorreoElectronico)
-                        .Where(x => x.NumeroDeTelefonoMovil == input.NumeroDeTelefonoMovil).ToList();
-
-            if (Usuario == null)
+            if (Usuario != null)
             {
-                foreach (var item in Coincidencia)
-                {
-                    if (item != null)
-                    {
-
-                        return item;
-                        
-                    }
-                    break;
-                }
+                return Usuario;
             }
 
             return Usuario;

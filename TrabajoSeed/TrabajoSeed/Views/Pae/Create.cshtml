@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TrabajoSeed.Models.Pae>
+
+@{
+    ViewData["Title"] = "Create";
+    IEnumerable<SelectListItem> items = (IEnumerable<SelectListItem>)ViewBag.Ep;
+}
+
+<h1>Subir Pae</h1>
+
+<h4>Pae</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="Pae" asp-action="Create">
+            <div class="form-group">
+            <input type="file" name="files" multiple />
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Titulo</label>
+                <input type="text" name="PaeModel.Titulo" class="form-control" />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Pae</label>
+                <input type="text" name="PaeModel.Pae1" class="form-control" />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DropDownList("PaeModel.Ep", items,"Selecciona", new { @class="form-control"})
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

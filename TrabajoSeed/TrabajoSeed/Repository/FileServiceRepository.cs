@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -59,13 +60,13 @@ namespace TrabajoSeed.Repository
             };
         }
 
-        public string[] Upload(FileUpload file, string[] entePublico)
+        public string[] UploadFile(IFormFile file, string[] identityKeys)
         {
-            string[] ente = entePublico;
+            string[] ente = identityKeys;
             string[] content = new string[3];
             
             string fileName = Path.GetRandomFileName();
-            string fileExt = Path.GetExtension(file.FormFile.FileName);
+            string fileExt = Path.GetExtension(file.FileName);
             string path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot", ente[0], ente[1]);
             bool coincidencia = !File.Exists(path);
             if (coincidencia)
@@ -74,7 +75,7 @@ namespace TrabajoSeed.Repository
                
                         using (var fileStream = new FileStream(Path.Combine(path, $"{fileName}{fileExt}"), FileMode.Create, FileAccess.Write))
                         {
-                            file.FormFile.CopyTo(fileStream);
+                            file.CopyTo(fileStream);
                         }
 
                         content[0] = fileName;
@@ -89,7 +90,7 @@ namespace TrabajoSeed.Repository
 
                 using (var fileStream = new FileStream(Path.Combine(path, $"{fileName}{fileExt}"), FileMode.Create, FileAccess.Write))
                 {
-                    file.FormFile.CopyTo(fileStream);
+                    file.CopyTo(fileStream);
                 }
 
                 content[0] = fileName;
@@ -102,5 +103,7 @@ namespace TrabajoSeed.Repository
 
             return content;
         }
+
+        
     }
 }

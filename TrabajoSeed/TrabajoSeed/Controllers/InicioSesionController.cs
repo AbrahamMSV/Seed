@@ -25,14 +25,14 @@ namespace TrabajoSeed.Controllers
         [HttpPost]
         public IActionResult Authenticate(UserInfo input)
         {
-           
-            if (ModelState.IsValid)
+            bool dbEntity = _Login.Authenticate(input);
+            if (dbEntity)
             {
-                bool dbEntity = _Login.Authenticate(input);
+                
                 var Usuario = _Login.GetUser(input);
                 var entePublico = _Login.getEntePublico(Usuario.EntePublico);
 
-                if (dbEntity == true && Usuario.UserInfoId == entePublico.UserUed)
+                if (Usuario.UserInfoId == entePublico.UserUed)
                 {
                     var userClaims = new List<Claim>()
                     {

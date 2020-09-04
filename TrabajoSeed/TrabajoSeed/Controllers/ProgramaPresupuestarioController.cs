@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TrabajoSeed.Models;
@@ -33,19 +34,24 @@ namespace TrabajoSeed.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Subir(ProgramasPresupuestarios _Programa, FileUpload file)
+        public IActionResult Subir(ProgramasPresupuestarios _Programa, IFormFile[] files)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && files != null)
             {
-                var identity = (ClaimsIdentity)User.Identity;
+                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
 
-                string[] llaves = { identity.FindFirst(ClaimTypes.Role).Value, identity.FindFirst(ClaimTypes.Expiration).Value };
+                string[] identityKeys = { identity.FindFirst(ClaimTypes.Role).Value, identity.FindFirst(ClaimTypes.Expiration).Value };
 
-                string[] content = _FileService.Upload(file, llaves);
-                if (content.Length != 0 && content != null)
+                foreach (var file in files)
                 {
-                    _ProgramaPresupuestario.Subir(_Programa, content);
+                    
+                string[] content = _FileService.UploadFile(file, identityKeys);
+                    if (content.Length != 0 && content != null)
+                    {
+                        _ProgramaPresupuestario.Subir(_Programa, content);
+                    }
                 }
+
             }
             return RedirectToAction("Index");
         }
@@ -67,11 +73,11 @@ namespace TrabajoSeed.Controllers
         }
         public IActionResult Descargar(int? id)
         {
-
             string[] filename = _ProgramaPresupuestario.Descargar(id);
+            string path;
             if (filename.Length != 0)
             {
-                string path = _FileService.Download(filename);
+                path = _FileService.Download(filename);
 
                 var memory = new MemoryStream();
                 using (var stream = new FileStream(path, FileMode.Open))

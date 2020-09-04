@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,12 +12,11 @@ namespace TrabajoSeed.Repository
     public class ProgramaPresupuestarioRepository : IProgramaPresupuestario
     {
         private GrupoSeedContext db;
-        private IWebHostEnvironment _env;
+        
 
-        public ProgramaPresupuestarioRepository(GrupoSeedContext _db, IWebHostEnvironment env)
+        public ProgramaPresupuestarioRepository(GrupoSeedContext _db)
         {
             db = _db;
-            _env = env;
         }
         public IEnumerable<ProgramasPresupuestarios> GetProgramasPresupuestarios => db.ProgramasPresupuestarios.ToList();
 

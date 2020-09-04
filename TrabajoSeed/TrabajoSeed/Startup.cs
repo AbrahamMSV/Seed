@@ -35,7 +35,8 @@ namespace TrabajoSeed
             services.AddAuthentication("CookieAuth")
                 .AddCookie("CookieAuth", config => {
                     config.Cookie.Name = "Seed.Cookie";
-                    config.LoginPath = "/InicioSesion/Index";
+                    config.LoginPath = "/Home/Index";
+                    config.AccessDeniedPath = "/Home/Privacy";
                 });
 
             services.AddAuthorization(config => 
@@ -61,6 +62,8 @@ namespace TrabajoSeed
             services.AddDbContext<GrupoSeedContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Connectionstr")));
             services.AddControllersWithViews();
             services.AddScoped<IAuthorizationHandler, CustomRequireHandler>();
+            //Agregar servicios y controlador
+            services.AddTransient<IPae, PaeRepository>();
             services.AddTransient<IUserInfo, UserInfoRepository>();
             services.AddTransient<IFileService, FileServiceRepository>();
             services.AddTransient<ILogin, LoginRepository>();

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TrabajoSeed.Models.Pae>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Subir Pae</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pae1)
+            </th>
+            <th>
+                Ente Publico
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pae1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelIem => item.EpNavigation.Nombre)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Documentos">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
