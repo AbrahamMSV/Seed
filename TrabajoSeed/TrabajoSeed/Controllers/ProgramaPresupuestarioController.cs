@@ -73,23 +73,16 @@ namespace TrabajoSeed.Controllers
         }
         public IActionResult Descargar(int? id)
         {
-            string[] filename = _ProgramaPresupuestario.Descargar(id);
-            string path;
-            if (filename.Length != 0)
+            string rutaAcceso = _FileService.Download(id);
+            if (rutaAcceso != null)
             {
-                path = _FileService.Download(filename);
-
-                var memory = new MemoryStream();
-                using (var stream = new FileStream(path, FileMode.Open))
-                {
-                    stream.CopyTo(memory);
-                }
-                memory.Position = 0;
-                return File(memory, _FileService.GetContentType(path), Path.GetFileName(path));
-            }else
-            {
-                return RedirectToAction("Index");
+                var memory = _FileService.GetMemory(rutaAcceso);
+               
+                return File(memory, _FileService.GetContentType(rutaAcceso), Path.GetFileName(rutaAcceso));
             }
+            
+                return RedirectToAction("Index");
+            
         }
     }
 }

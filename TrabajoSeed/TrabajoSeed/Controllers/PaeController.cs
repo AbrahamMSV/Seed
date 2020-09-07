@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -71,6 +72,21 @@ namespace TrabajoSeed.Controllers
                 {
                     _FileService.Delete(nombres);
                 }
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Descargar(int? id)
+        {
+            
+            string rutaAcceso = _FileService.Download(id);
+            //Recibe el ID de el modelo Documentos. Retorna la ruta de acceso guardada en la base de datos.
+            if (rutaAcceso != null)
+            {
+                //retorna un objeto MemoryStream con el archivo de la ruta de acceso como parametro dado.
+                var memory = _FileService.GetMemory(rutaAcceso);
+
+                return File(memory, _FileService.GetContentType(rutaAcceso), Path.GetFileName(rutaAcceso));
             }
             return RedirectToAction("Index");
         }

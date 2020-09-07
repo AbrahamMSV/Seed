@@ -9,8 +9,9 @@ namespace TrabajoSeed.Services
     public interface IPae
     {
         IEnumerable<Pae> GetPae { get; }
-        void Subir(Pae pae, string[] file);
+        public void Subir(Pae pae, string[] file);
         List<EntePublico> lst { get; }
         public string[] Eliminar(int? id);
+        public string Descargar(int? id);
     }
 }

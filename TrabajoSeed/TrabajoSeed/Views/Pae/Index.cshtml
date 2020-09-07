@@ -37,7 +37,8 @@
                 @Html.DisplayFor(modelIem => item.EpNavigation.Nombre)
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@item.Documentos">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Documentos">Eliminar</a>
+                <a asp-action="Descargar" asp-route-id="@item.Documentos">Descargar</a>
             </td>
         </tr>
 }

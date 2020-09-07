@@ -11,6 +11,11 @@ namespace TrabajoSeed.Repository
 {
     public class FileServiceRepository : IFileService
     {
+        private GrupoSeedContext db;
+        public FileServiceRepository(GrupoSeedContext _db)
+        {
+            db = _db;
+        }
         public bool Delete(string[] documento)
         {
             string nameFile = string.Empty;
@@ -27,12 +32,16 @@ namespace TrabajoSeed.Repository
             return resultado;
         }
 
-        public string Download(string[] nameFile)
+        public string Download(int? id)
         {
-            
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{nameFile[0]}{nameFile[1]}");
-            
-            return path;
+            string rutaAcceso = string.Empty;
+            Documentos documento = db.Documentos.Find(id);
+
+            if (documento != null)
+            {
+                rutaAcceso = documento.RutaDeAcceso;
+            }
+            return rutaAcceso;
         }
 
         public string GetContentType(string path)
@@ -40,6 +49,21 @@ namespace TrabajoSeed.Repository
             var types = GetMimeTypes();
             var ext = Path.GetExtension(path).ToLowerInvariant();
             return types[ext];
+        }
+
+        public MemoryStream GetMemory(string rutaAcceso)
+        {
+            MemoryStream memory = new MemoryStream();
+            if (rutaAcceso != null)
+            {
+                using (var stream = new FileStream(rutaAcceso, FileMode.Open))
+                {
+                    stream.CopyTo(memory);
+                }
+                memory.Position = 0;
+            }
+            
+            return memory;
         }
 
         public Dictionary<string, string> GetMimeTypes()

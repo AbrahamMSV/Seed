@@ -12,6 +12,6 @@ namespace TrabajoSeed.Services
         IEnumerable<ProgramasPresupuestarios> GetProgramasPresupuestarios { get; }
         void Subir(ProgramasPresupuestarios _Programa, string[] file);
         string[] Eliminar(int? id);
-        string[] Descargar(int? id);
+        string Descargar(int? id);
     }
 }

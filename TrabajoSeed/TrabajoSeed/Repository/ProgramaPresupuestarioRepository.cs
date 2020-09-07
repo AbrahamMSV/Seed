@@ -20,18 +20,17 @@ namespace TrabajoSeed.Repository
         }
         public IEnumerable<ProgramasPresupuestarios> GetProgramasPresupuestarios => db.ProgramasPresupuestarios.ToList();
 
-        public string[] Descargar(int? id)
+        public string Descargar(int? id)
         {
-            string[] nameFile = new string[2];
+            string rutaAcceso = string.Empty;
             Documentos documento = db.Documentos.Find(id);
 
             if (documento != null)
             {
-                nameFile[0] = documento.TipoDeContenido;
-                nameFile[1] = documento.TipoDeArchivo;
+                rutaAcceso = documento.RutaDeAcceso;
             }
 
-            return nameFile;
+            return rutaAcceso;
         }
 
         public string[] Eliminar(int? id)

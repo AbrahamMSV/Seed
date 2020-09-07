@@ -1,0 +1,3 @@
+Juego de rol en donde cada etapa (el jugador va a una cita y dependiendo de el resultado de la cita)
+tiene un minijuego en donde la dificultad, tipo y ambiente se vea 100% relacionado con el resultado 
+animico que se encuentra el protagonista. Cada vez que el protagonista sueña empiezan esos minijuegos.

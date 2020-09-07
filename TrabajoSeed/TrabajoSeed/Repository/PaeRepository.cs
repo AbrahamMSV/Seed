@@ -26,6 +26,18 @@ namespace TrabajoSeed.Repository
                                              Nombre = d.Nombre
                                          }).ToList();
 
+        public string Descargar(int? id)
+        {
+            string rutaAcceso = string.Empty;
+            Documentos documento = db.Documentos.Find(id);
+
+            if (documento != null)
+            {
+                rutaAcceso = documento.RutaDeAcceso;
+            }
+            return rutaAcceso;
+        }
+
         public string[] Eliminar(int? id)
         {
             string nameFile = string.Empty;
